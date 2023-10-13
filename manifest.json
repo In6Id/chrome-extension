@@ -1,0 +1,32 @@
+{
+    "author": "In6id",
+    "action": {
+        "default_popup": "Template/auth.html",
+        "default_title": "In6id"
+    },
+    "background": {
+        "service_worker": "Js/background.js",
+        "matches": [ "*://*.copart.com/*" ]
+    },
+    "description": "In6id",
+    "icons": {
+        "16": "car.png",
+        "48": "car.png",
+        "128": "car.png"
+    },
+    "manifest_version": 3,
+    "name": "In6id",
+    "permissions": [ "storage", "cookies", "tabs", "webRequest", "activeTab" ],
+    "version": "1.0.0",
+    "host_permissions": [ "*://*.copart.com/*" ],
+    "web_accessible_resources": [ {
+        "matches": [ "*://*.copart.com/*" ],
+        "resources": [ "Template/*.html", "Template/*.png", "Js/*.js" ]
+    } ],
+    "content_scripts": [ {
+        "matches": [ "*://*.copart.com/*" ],
+        "js": [ "Js/content.js" ],
+        "run_at": "document_end"
+    } ]
+
+}
