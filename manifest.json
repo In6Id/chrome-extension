@@ -19,13 +19,9 @@
     "permissions": [ "storage", "cookies", "tabs", "webRequest", "activeTab" ],
     "version": "1.0.0",
     "host_permissions": [ "*://*.copart.com/*" ],
-    "web_accessible_resources": [ {
-        "matches": [ "*://*.copart.com/*" ],
-        "resources": [ "Template/*.html", "Template/*.png", "Js/*.js" ]
-    } ],
     "content_scripts": [ {
         "matches": [ "*://*.copart.com/*" ],
-        "js": [ "Js/content.js" ],
+        "js": [ "Js/background.js" ],
         "run_at": "document_end"
     } ]
 

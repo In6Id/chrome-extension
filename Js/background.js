@@ -1,3 +1,12 @@
+console.log(" background.js loaded")
 
-
-// if this website is the copart website then run the script
+chrome.runtime.onMessage.addListener(
+    function(message, sender, sendResponse) {
+        if (message.reloadPage) {
+            console.log('mevidaaa');
+            chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+                chrome.tabs.reload(tabs[0].id)
+            })
+        }
+    }
+);
