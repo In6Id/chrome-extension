@@ -7,7 +7,8 @@
     },
     "background": {
         "service_worker": "Js/background.js",
-        "matches": [ "*://*.copart.com/*" ]
+        "matches": [ "*://*.copart.com/*" ],
+        "type": "module"
     },
     "description": "In6id",
     "icons": {
@@ -22,7 +23,12 @@
     "host_permissions": [ "*://*.copart.com/*" ],
     "content_scripts": [ {
         "matches": [ "*://*.copart.com/*" ],
-        "js": [ "Js/content.js" ],
+        "js": [ "Js/background.js" ],
         "run_at": "document_end"
-    } ]
+    },
+    {
+        "matches": [ "*://*.copart.com/*" ],
+        "js": [ "Js/htmlParse.js" ]
+    }
+ ]
 }
