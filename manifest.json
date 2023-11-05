@@ -2,7 +2,8 @@
     "author": "In6id",
     "action": {
         "default_popup": "Template/auth.html",
-        "default_title": "In6id"
+        "default_title": "In6id",
+        "matches": [ "*://*.copart.com/*" ]
     },
     "background": {
         "service_worker": "Js/background.js",
@@ -21,8 +22,7 @@
     "host_permissions": [ "*://*.copart.com/*" ],
     "content_scripts": [ {
         "matches": [ "*://*.copart.com/*" ],
-        "js": [ "Js/background.js" ],
+        "js": [ "Js/content.js" ],
         "run_at": "document_end"
     } ]
-
 }
