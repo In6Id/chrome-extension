@@ -1,6 +1,7 @@
 let login = document.getElementById('username');
 let password = document.getElementById('password');
 let submit = document.getElementById('login');
+let copartUrl = document.getElementById('copartUrl');
 
 function parseJwt (token) {
     var base64Url = token.split('.')[1];
@@ -27,11 +28,13 @@ submit.addEventListener('click', (e) => {
     //     .then((res) => res.json())
     //     .then((response) => {
     //         const token = response.data.token;
+
+    //         console.log(token)
             
-    //         const { acc , psw } = parseJwt(token);
+    //         // const { acc , psw } = parseJwt(token);
 
 
-    //         console.log(acc, psw);
+    //         // console.log(acc, psw);
 
     //     })
     //     .catch((err) => console.log(err))
@@ -56,6 +59,12 @@ submit.addEventListener('click', (e) => {
             console.log('sent message to background.js');
             chrome.runtime.sendMessage({reloadPage: true})
             location.href = './userPage.html';
+
+            // chrome.tabs.create({
+            //     url: 'https://www.copart.com/',
+            //     active: true
+            // })
+            
         })
         .catch((err) => console.log(err))
 
