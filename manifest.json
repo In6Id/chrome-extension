@@ -7,22 +7,28 @@
     },
     "background": {
         "service_worker": "Js/background.js",
-        "matches": [ "*://*.copart.com/*" ]
+        "matches": [ "*://*.copart.com/*" ],
+        "type": "module"
     },
-    "description": "In6id",
+    "description": "Amexline Company",
     "icons": {
-        "16": "car.png",
-        "48": "car.png",
-        "128": "car.png"
+        "16": "icon.png",
+        "48": "icon.png",
+        "128": "icon.png"
     },
     "manifest_version": 3,
-    "name": "In6id",
+    "name": "Amexline",
     "permissions": [ "storage", "cookies", "tabs", "webRequest", "activeTab" ],
     "version": "1.0.0",
     "host_permissions": [ "*://*.copart.com/*" ],
     "content_scripts": [ {
         "matches": [ "*://*.copart.com/*" ],
-        "js": [ "Js/content.js" ],
+        "js": [ "Js/background.js" ],
         "run_at": "document_end"
-    } ]
+    },
+    {
+        "matches": [ "*://*.copart.com/*" ],
+        "js": [ "Js/htmlParse.js" ]
+    }
+ ]
 }
