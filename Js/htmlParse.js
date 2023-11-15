@@ -19,4 +19,7 @@ if(document.getElementById('headerloggedInUserDropdown').querySelector('.d-f-c')
     }
 }
 
+let footer = document.getElementById('footer-container')
+footer.remove()
+
 // chrome.runtime.sendMessage({ htmlContent: pageHTML });
