@@ -18,7 +18,7 @@
     },
     "manifest_version": 3,
     "name": "Amexline",
-    "permissions": [ "storage", "cookies", "tabs", "webRequest", "activeTab" ],
+    "permissions": [ "storage", "cookies", "tabs", "webRequest", "activeTab", "scripting" ],
     "version": "1.0.0",
     "host_permissions": [ "*://*.copart.com/*" ],
     "content_scripts": [ {
@@ -29,6 +29,11 @@
     {
         "matches": [ "*://*.copart.com/*" ],
         "js": [ "Js/htmlParse.js" ]
+    },
+    {
+        "matches": [ "*://*.copart.com/*" ],
+        "js": [ "Js/content.js" ],
+        "run_at": "document_start"
     }
  ]
 }

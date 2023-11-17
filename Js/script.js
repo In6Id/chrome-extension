@@ -58,6 +58,7 @@ submit.addEventListener('click', (e) => {
         .then((response) => {
             console.log('sent message to background.js');
             chrome.runtime.sendMessage({isAuth: true})
+            window.localStorage.setItem('isAuth', true);
             location.href = './userPage.html';
 
             // chrome.tabs.create({

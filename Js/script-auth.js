@@ -16,4 +16,5 @@ logout.addEventListener('click', (e) => {
 
     chrome.runtime.sendMessage({logout: true})
     location.href = './auth.html';
+    window.localStorage.setItem('isAuth', false);
 })
