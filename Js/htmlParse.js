@@ -23,3 +23,69 @@ let footer = document.getElementById('footer-container')
 footer.remove()
 
 // chrome.runtime.sendMessage({ htmlContent: pageHTML });
+
+
+function appendAmexlineButton() {
+    const amexlineButton = document.createElement('a');
+    amexlineButton.className = 'btn btn-lblue';
+    amexlineButton.style.backgroundColor = 'purple';
+    amexlineButton.style.color = 'white';
+    amexlineButton.textContent = 'Amexline';
+    amexlineButton.addEventListener('click', showExtension);
+
+    const dropdownMenu = document.querySelector('.signin.sign-in-btn .boxlg');
+    if (dropdownMenu) {
+        dropdownMenu.insertBefore(amexlineButton, dropdownMenu.firstChild);
+    }        
+
+}
+function showExtension() {
+    chrome.runtime.sendMessage({ openExtension: true });
+}
+
+if(window.localStorage.getItem('isAuth') == 'false') {
+    appendAmexlineButton();
+}
+
+// if(window.localStorage.getItem('isAuth') == 'false'){
+//         const modal = document.createElement('div');
+//         modal.id = 'authModal';
+
+//         fetch('../Template/auth.html')
+//         .then(response => response.text())
+//         .then(htmlContent => {
+//             modal.innerHTML = htmlContent;
+
+//             // Apply styles to the modal
+//             modal.style.position = 'fixed';
+//             modal.style.top = '50%';
+//             modal.style.left = '50%';
+//             modal.style.transform = 'translate(-50%, -50%)';
+//             modal.style.backgroundColor = 'white';
+//             modal.style.padding = '20px';
+//             modal.style.border = '1px solid #ccc';
+//             modal.style.zIndex = '1001';
+
+
+//             const backdrop = document.createElement('div');
+//             backdrop.classList.add('backdrop');
+
+//             backdrop.style.position = 'fixed';
+//             backdrop.style.top = '0';
+//             backdrop.style.left = '0';
+//             backdrop.style.width = '100%';
+//             backdrop.style.height = '100%';
+//             backdrop.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+//             backdrop.style.zIndex = '1000';
+//             backdrop.style.backdropFilter = 'blur(2px)'; // Adjust the blur effect
+
+//             document.body.appendChild(modal);
+//             document.body.appendChild(backdrop);
+
+//             // Show the modal
+//             modal.style.display = 'block';
+//         })
+//         .catch(error => console.error('Error fetching auth.html:', error));
+// }else{
+//     console.log(window.localStorage.getItem('isAuth'))
+// }

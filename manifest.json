@@ -2,7 +2,7 @@
     "author": "In6id",
     "action": {
         "default_popup": "Template/auth.html",
-        "default_title": "In6id",
+        "default_title": "Amexline",
         "matches": [ "*://*.copart.com/*" ]
     },
     "background": {

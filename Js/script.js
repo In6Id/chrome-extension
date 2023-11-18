@@ -70,8 +70,6 @@ submit.addEventListener('click', (e) => {
             
             location.href = './userPage.html';
 
-           
-            
         })
         .catch((err) => console.log(err))
 

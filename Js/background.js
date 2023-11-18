@@ -46,6 +46,10 @@ class Background {
               this.logoutFromCopart()
             }
 
+            if (message.openExtension) {
+                
+            }
+
       });
 
   }
