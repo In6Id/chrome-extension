@@ -22,6 +22,21 @@ if(document.getElementById('headerloggedInUserDropdown').querySelector('.d-f-c')
 let footer = document.getElementById('footer-container')
 footer.remove()
 
+let headerloggedInUserDropdown = document.getElementById('headerloggedInUserDropdown')
+headerloggedInUserDropdown.style.display = 'none'
+
+
+
+let nav = document.querySelector('.nav.navbar-nav')
+
+let permissions = ['payments', 'dashboard', 'findVehicles', 'Auctions', 'bidStatus']
+
+for(let i = 0; i < nav.children.length; i++) {
+    if(!permissions.includes(nav.children[i].getAttribute('ng-class')?.split("'")[1])) nav.children[i].remove()
+}
+
+console.log('done')
+
 // chrome.runtime.sendMessage({ htmlContent: pageHTML });
 
 
