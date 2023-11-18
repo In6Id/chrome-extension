@@ -17,60 +17,85 @@ function parseJwt (token) {
 submit.addEventListener('click', (e) => {
     e.preventDefault();
 
-    // fetch('https://api.amexlinee.com/api/v1/auth/copart-login?username=nik11&password=12345678', {
-    //     method: 'POST',
-    //     headers: {
-    //         'Content-Type': 'application/json',
-    //         'Accept': 'application/json',
-    //         'Access-Control-Allow-Origin': '*'
-    //     }
-    // })
-    //     .then((res) => res.json())
-    //     .then((response) => {
-    //         const token = response.data.token;
-
-    //         console.log(token)
-            
-    //         // const { acc , psw } = parseJwt(token);
-
-
-    //         // console.log(acc, psw);
-
-    //     })
-    //     .catch((err) => console.log(err))
-
-
-    fetch('https://www.copart.com/processLogin', {
+    fetch('https://api.amexlinee.com/api/v1/auth/copart-login?username=nik11&password=12345678', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json',
             'Access-Control-Allow-Origin': '*'
-        },
-        body: JSON.stringify({
-            username: 'vanikogogaladze@gmail.com',
-            password: 'Cotne123',
-            accountType: "0",
-            accountTypeValue: "0",
-        })
+        }
     })
         .then((res) => res.json())
         .then((response) => {
-            console.log('sent message to background.js');
+
+            console.log(response)
+
+            
+            
+
+            if(response.status == true) {
+
+                const token = response.data.token;
+
+                chrome.runtime.sendMessage({token: token})
+                chrome.runtime.sendMessage({credentials: JSON.stringify(response.data)})
+
+                window.localStorage.setItem('amexIsAuth', true);
+                window.localStorage.setItem('token', token);
+                window.localStorage.setItem('credentials', JSON.stringify(response.data.user));
+
+                copartLogin();
+
+            }
+
+            
+            // const { acc , psw } = parseJwt(token);
+
+
+            // console.log(acc, psw);
+
+        })
+        .catch((err) => console.log(err))
+
+
+    function copartLogin() {
+
+        fetch('https://www.copart.com/processLogin', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'Access-Control-Allow-Origin': '*'
+            },
+            body: JSON.stringify({
+                username: 'vanikogogaladze@gmail.com',
+                password: 'Cotne123',
+                accountType: "0",
+                accountTypeValue: "0",
+            })
+        })
+        .then((res) => res.json())
+        .then((response) => {
+            
             chrome.runtime.sendMessage({isAuth: true})
             window.localStorage.setItem('isAuth', true);
 
             chrome.tabs.query({ url: 'https://www.copart.com/*' }, function (tabs) {
-            if (tabs.length > 0) {
-                chrome.tabs.update(tabs[0].id, { active: true });
-            } else {
-                chrome.tabs.create({ url: 'https://www.copart.com/', active: true });
-            }
-});
-            
-            location.href = './userPage.html';
 
-        })
+                if (tabs.length > 0) {
+                    chrome.tabs.update(tabs[0].id, { active: true });
+                } else {
+                    chrome.tabs.create({ url: 'https://www.copart.com/', active: true });
+                }
+
+            });
+                
+                location.href = './userPage.html';
+
+            })
+
         .catch((err) => console.log(err))
+
+    }
 
 })

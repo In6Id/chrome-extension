@@ -50,6 +50,15 @@ class Background {
                 
             }
 
+            if(message.token) {
+              chrome.storage.local.set({token: message.token})
+            }
+
+            if(message.credentials) {
+              // chrome.storage.local.set({credentials: message.credentials})
+              console.log(message.credentials);
+            }
+
       });
 
   }

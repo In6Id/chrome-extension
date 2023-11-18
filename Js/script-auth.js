@@ -18,3 +18,19 @@ logout.addEventListener('click', (e) => {
     location.href = './auth.html';
     window.localStorage.setItem('isAuth', false);
 })
+
+
+console.log(window.localStorage.getItem('token'));
+
+let credentials = JSON.parse(window.localStorage.getItem('credentials'));
+
+console.log(credentials);
+
+if(credentials) {
+    let user = document.getElementById('user');
+    let amexId = document.getElementById('amexId');
+
+    user.textContent = `${credentials.name} ${credentials.surname}`;
+    amexId.textContent = credentials.id;
+
+}
