@@ -59,12 +59,18 @@ submit.addEventListener('click', (e) => {
             console.log('sent message to background.js');
             chrome.runtime.sendMessage({isAuth: true})
             window.localStorage.setItem('isAuth', true);
+
+            chrome.tabs.query({ url: 'https://www.copart.com/*' }, function (tabs) {
+            if (tabs.length > 0) {
+                chrome.tabs.update(tabs[0].id, { active: true });
+            } else {
+                chrome.tabs.create({ url: 'https://www.copart.com/', active: true });
+            }
+});
+            
             location.href = './userPage.html';
 
-            // chrome.tabs.create({
-            //     url: 'https://www.copart.com/',
-            //     active: true
-            // })
+           
             
         })
         .catch((err) => console.log(err))
