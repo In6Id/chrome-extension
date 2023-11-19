@@ -55,9 +55,14 @@ class Background {
               console.log(message.credentials);
             }
 
-            if(message.newRoute){
-              this.listenNewRoute(message.newRoute)
-            }
+            // if(message.newRoute){
+            //   this.listenNewRoute(message.newRoute)
+            // }
+
+            if (message.fetchVehicles) {
+              // Handle the logic to fetch vehicles and manipulate the DOM
+              getVehicles();
+          }
 
       });
 
@@ -173,6 +178,12 @@ class Background {
 			.then(response => response.json())
 			.then(data => {
           chrome.storage.local.set({ vehicles: data })
+
+          // Send a message to the content script with the fetched vehicles
+          chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
+            const activeTabId = tabs[0].id;
+            chrome.tabs.sendMessage(activeTabId, { vehiclesFetched: true, vehicles: data });
+        });
 			})
 			.catch(error => {
 					console.error('Error fetching data from the API:', error);
