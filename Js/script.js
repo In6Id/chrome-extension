@@ -17,7 +17,7 @@ function parseJwt (token) {
 submit.addEventListener('click', (e) => {
     e.preventDefault();
 
-    fetch('https://api.amexlinee.com/api/v1/auth/copart-login?username=nik11&password=12345678', {
+    fetch('https://api.amexlinee.com/api/v1/auth/copart-login?username=tnakopia2&password=ramses2aaf8', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -29,9 +29,6 @@ submit.addEventListener('click', (e) => {
         .then((response) => {
 
             console.log(response)
-
-            
-            
 
             if(response.status == true) {
 
@@ -48,12 +45,6 @@ submit.addEventListener('click', (e) => {
 
             }
 
-            
-            // const { acc , psw } = parseJwt(token);
-
-
-            // console.log(acc, psw);
-
         })
         .catch((err) => console.log(err))
 
@@ -68,8 +59,8 @@ submit.addEventListener('click', (e) => {
                 'Access-Control-Allow-Origin': '*'
             },
             body: JSON.stringify({
-                username: 'vanikogogaladze@gmail.com',
-                password: 'Cotne123',
+                username: '255912',
+                password: 'marneuli1998',
                 accountType: "0",
                 accountTypeValue: "0",
             })

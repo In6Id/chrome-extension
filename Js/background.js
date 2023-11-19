@@ -46,10 +46,6 @@ class Background {
               this.logoutFromCopart()
             }
 
-            if (message.openExtension) {
-                
-            }
-
             if(message.token) {
               chrome.storage.local.set({token: message.token})
             }
@@ -57,6 +53,10 @@ class Background {
             if(message.credentials) {
               // chrome.storage.local.set({credentials: message.credentials})
               console.log(message.credentials);
+            }
+
+            if(message.newRoute){
+              this.listenNewRoute(message.newRoute)
             }
 
       });
@@ -96,7 +96,7 @@ class Background {
       chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
 
         chrome.scripting.executeScript({
-            target: { tabId: tabs[0].id },
+            target: { tabId: tabs[0]?.id },
             function: () => {
 
               let logout = document.getElementById('headerloggedInUserDropdown')
@@ -144,6 +144,43 @@ class Background {
 
   // }
   
+
+  listenNewRoute(route){
+		if (route.includes('/myBids/') || route.includes('/lotsLost/') || route.includes('/lotsWon/')) {
+      chrome.storage.local.get('vehicles', (result) => {
+        if(!result.vehicles){
+          this.getVehicles()
+        }
+      })
+		}
+
+  }
+
+  
+
+  getVehicles() {
+			const apiUrl = 'https://api.amexlinee.com/api/v1/dealers/copart-vehicles';
+
+			chrome.storage.local.get('token', (result) => {
+        
+        fetch(apiUrl, {
+					method: 'GET',
+					headers: {
+							'Authorization': result.token,
+							'Content-Type': 'application/json'
+					},
+			})
+			.then(response => response.json())
+			.then(data => {
+          chrome.storage.local.set({ vehicles: data })
+			})
+			.catch(error => {
+					console.error('Error fetching data from the API:', error);
+			});
+
+			})
+  }
+
 }
 
 new Background()
