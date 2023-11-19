@@ -61,7 +61,11 @@ class Background {
 
             if (message.fetchVehicles) {
               // Handle the logic to fetch vehicles and manipulate the DOM
-              getVehicles();
+              chrome.storage.local.get('vehicles', (result) => {
+                if(!result.vehicles){
+                  this.getVehicles()
+                }
+              });
           }
 
       });
@@ -181,7 +185,7 @@ class Background {
 
           // Send a message to the content script with the fetched vehicles
           chrome.tabs.query({ active: true, currentWindow: true }, function (tabs) {
-            const activeTabId = tabs[0].id;
+            const activeTabId = tabs[0]?.id;
             chrome.tabs.sendMessage(activeTabId, { vehiclesFetched: true, vehicles: data });
         });
 			})
