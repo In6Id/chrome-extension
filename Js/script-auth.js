@@ -19,12 +19,7 @@ logout.addEventListener('click', (e) => {
     window.localStorage.setItem('isAuth', false);
 })
 
-
-console.log(window.localStorage.getItem('token'));
-
 let credentials = JSON.parse(window.localStorage.getItem('credentials'));
-
-console.log(credentials);
 
 if(credentials) {
     let user = document.getElementById('user');

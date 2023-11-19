@@ -17,7 +17,7 @@ function parseJwt (token) {
 submit.addEventListener('click', (e) => {
     e.preventDefault();
 
-    fetch('https://api.amexlinee.com/api/v1/auth/copart-login?username=tnakopia2&password=ramses2aaf8', {
+    fetch(`https://api.amexlinee.com/api/v1/auth/copart-login?username=${login.value}&password=${password.value}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -41,7 +41,7 @@ submit.addEventListener('click', (e) => {
                 window.localStorage.setItem('token', token);
                 window.localStorage.setItem('credentials', JSON.stringify(response.data.user));
 
-                copartLogin();
+                copartLogin(JSON.stringify(response.data.user));
 
             }
 
@@ -49,7 +49,7 @@ submit.addEventListener('click', (e) => {
         .catch((err) => console.log(err))
 
 
-    function copartLogin() {
+    function copartLogin(creds) {
 
         fetch('https://www.copart.com/processLogin', {
             method: 'POST',
@@ -70,6 +70,8 @@ submit.addEventListener('click', (e) => {
             
             chrome.runtime.sendMessage({isAuth: true})
             window.localStorage.setItem('isAuth', true);
+            console.log(response);
+            chrome.runtime.sendMessage({credentialsData: creds})
 
             chrome.tabs.query({ url: 'https://www.copart.com/*' }, function (tabs) {
 

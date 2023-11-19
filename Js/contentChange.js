@@ -1,11 +1,41 @@
 class LotManager {
   constructor() {
     this.lot = [];
+    this.init()
     this.observer = new MutationObserver(this.onRouteChange.bind(this));
     this.config = { childList: true, subtree: true };
 
     // Start observing
     this.observer.observe(document.body, this.config);
+  }
+
+  init() {
+
+    chrome.storage.local.get('credentialsData', (result) => {
+      let credentials = JSON.parse(result.credentialsData);
+      document.querySelectorAll('.ml-5.loggedInUserIcon')[0].innerText = `${credentials.name} ${credentials.surname}`
+
+
+
+
+      let nav = document.querySelectorAll('.nav.navbar-nav')
+      
+      let permissions = ['payments', 'dashboard', 'findVehicles', 'Auctions', 'bidStatus']
+      
+      console.log(nav[1].children);
+
+      for(let i = 0; i < nav[1].children.length; i++) {
+        console.log(nav[1].children[i].getAttribute('ng-class')?.split("'")[1]);
+        if(!permissions.includes(nav[1].children[i].getAttribute('ng-class')?.split("'")[1])){
+          console.log(nav[1].children[i].getAttribute('ng-class')?.split("'")[1]);
+          nav[1].children[i].remove()
+        }
+      }
+
+      console.log('done')
+
+    })
+
   }
 
   onRouteChange(mutationsList) {

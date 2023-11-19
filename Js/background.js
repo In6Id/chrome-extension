@@ -50,9 +50,8 @@ class Background {
               chrome.storage.local.set({token: message.token})
             }
 
-            if(message.credentials) {
-              // chrome.storage.local.set({credentials: message.credentials})
-              console.log(message.credentials);
+            if(message.credentialsData) {
+              chrome.storage.local.set({credentialsData: message.credentialsData})
             }
 
             // if(message.newRoute){
@@ -66,7 +65,7 @@ class Background {
                   this.getVehicles()
                 }
               });
-          }
+            }
 
       });
 
