@@ -67,13 +67,36 @@ class Background {
               });
             }
 
+            if(message.get === 'sendLogBid') {
+              this.sendBidLog(message.logData);
+            }
+
+            if(message.get === 'checkControlPrebid') {}
+            if(message.get === 'getAppInfo') {}
+            if(message.get === 'getUserConfig') {}
+            if(message.get === 'setUserConfig') {}
+            if(message.get === 'sendLogBid') {}
+            if(message.get === 'sendLogPaymentDue') {}
+            if(message.get === 'check_auth') {}
+            if(message.get === 'reInitPageLog') {}
+            if(message.get === 'reInitDue') {}
+
       });
 
+  }
+
+  setPopUpPermissions(tab) {
+    if (tab?.discarded) return;
+    if (tab?.url && (tab?.url.includes("copart.com"))) chrome.action.enable(tab?.id);
+    else chrome.action.disable(tab?.id);
   }
 
   authorization() {
 
       chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+
+          // this.setPopUpPermissions(tabs[0]);
+
           chrome.storage.local.set({is_auth: 'true'}, () => {
 
               chrome.tabs.reload(tabs[0]?.id);
@@ -83,6 +106,44 @@ class Background {
           });
       });
 
+  }
+
+  async sendBidLog(logData) {
+
+    const ipInfo = await this.getIPInfo()
+    const token = await this.getToken()
+    const userInfo = {...logData, ...ipInfo, ...{token: token}}
+
+    fetch(`https://api.amexlinee.com/api/v1/dealers/copart-log`, {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Access-Control-Allow-Origin': '*',
+          'Authorization': token
+      },
+      body: JSON.stringify(userInfo)
+    })
+    .then((res) => res.json())
+    .then((response) => {
+        console.log(response)
+    })
+    .catch((err) => console.log(err))
+  }
+
+  async getToken() {
+    return new Promise((resolve) => {
+      chrome.storage.local.get('token', (result) => {
+        resolve(result.token)
+      })
+    })
+  }
+
+  async getIPInfo() {
+      const e = await fetch("https://json.geoiplookup.io/")
+                      .then((e) => e.json())
+                      .catch((e) => null);
+      return { userIP: e.ip, userISP: e.isp, userCity: e.city, userCountry: e.country_name, userRegion: e.region, longitude: e.longitude, latitude: e.latitude };
   }
 
   logout() {
@@ -164,8 +225,6 @@ class Background {
 
   }
 
-  
-
   getVehicles() {
 			const apiUrl = 'https://api.amexlinee.com/api/v1/dealers/copart-vehicles';
 
@@ -197,4 +256,8 @@ class Background {
 
 }
 
-new Background()
+try {
+  new Background()
+} catch (error) {
+  console.log(error);
+}

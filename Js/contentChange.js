@@ -124,4 +124,34 @@ class LotManager {
 }
 
 // Instantiate the LotManager class
-const lotManager = new LotManager();
+
+try {
+  new LotManager();
+} catch (e) {
+  console.log(e);
+  // (async () => {
+  
+  //     const token = await this.getToken()
+
+  //     fetch(`https://api.amexlinee.com/api/v1/dealers/copart-errors`, {
+  //         method: 'POST',
+  //         headers: {
+  //             'Content-Type': 'application/json',
+  //             'Accept': 'application/json',
+  //             'Access-Control-Allow-Origin': '*',
+  //             'Authorization': token
+  //         },
+  //         body: JSON.stringify({
+  //           token: token,
+  //           message: e.message,
+  //           stack: e.stack
+  //         })
+  //       })
+  //       .then((res) => res.json())
+  //       .then((response) => {
+  //           console.log(response)
+  //       })
+  //       .catch((err) => console.log(err))
+
+  //   })()
+}

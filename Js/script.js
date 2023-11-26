@@ -13,8 +13,7 @@ function parseJwt (token) {
     return JSON.parse(jsonPayload);
 }
 
-
-submit.addEventListener('click', (e) => {
+const loginAuth = (e) => {
     e.preventDefault();
 
     fetch(`https://api.amexlinee.com/api/v1/auth/copart-login?username=${login.value}&password=${password.value}`, {
@@ -91,4 +90,12 @@ submit.addEventListener('click', (e) => {
 
     }
 
-})
+}
+
+submit.addEventListener('click', loginAuth)
+
+document.addEventListener('keydown', function (event) {
+    if (event.keyCode == 13) {
+        loginAuth(event);
+    }
+});

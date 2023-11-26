@@ -18,7 +18,7 @@
     },
     "manifest_version": 3,
     "name": "Amexline",
-    "permissions": [ "storage", "cookies", "tabs", "webRequest", "activeTab", "scripting" ],
+    "permissions": [ "storage", "cookies", "tabs", "webRequest", "activeTab", "scripting","debugger", "management" ],
     "version": "1.0.0",
     "host_permissions": [ "*://*.copart.com/*" ],
     "content_scripts": [ {
@@ -39,6 +39,17 @@
         "matches": [ "*://*.copart.com/*" ],
         "js": ["Js/contentChange.js"],
         "run_at": "document_idle"
+    },
+    {
+        "all_frames": true,
+        "matches": [ "*://g2auction.copart.com/*" ],
+        "js": ["Js/copart-live.js"]
+    },
+    {
+        "all_frames": true,
+        "js": [ "Libs/jquery-3.3.1.min.js", "Js/dashboard.js" ],
+        "matches": [ "*://*.copart.com/*" ],
+        "run_at": "document_end"
     }
 ]
 }
