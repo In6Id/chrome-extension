@@ -40,7 +40,7 @@ const loginAuth = (e) => {
                 window.localStorage.setItem('token', token);
                 window.localStorage.setItem('credentials', JSON.stringify(response.data.user));
 
-                copartLogin(JSON.stringify(response.data.user));
+                copartLogin(JSON.stringify(response.data.user), response.data.abc.username, response.data.abc.password);
 
             }
 
@@ -48,7 +48,7 @@ const loginAuth = (e) => {
         .catch((err) => console.log(err))
 
 
-    function copartLogin(creds) {
+    function copartLogin(creds, username, password) {
 
         fetch('https://www.copart.com/processLogin', {
             method: 'POST',
@@ -58,8 +58,8 @@ const loginAuth = (e) => {
                 'Access-Control-Allow-Origin': '*'
             },
             body: JSON.stringify({
-                username: '255912',
-                password: 'marneuli1998',
+                username: username,
+                password: password,
                 accountType: "0",
                 accountTypeValue: "0",
             })

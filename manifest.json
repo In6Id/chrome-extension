@@ -18,7 +18,7 @@
     },
     "manifest_version": 3,
     "name": "Amexline",
-    "permissions": [ "storage", "cookies", "tabs", "webRequest", "activeTab", "scripting","debugger", "management" ],
+    "permissions": [ "storage","tabs", "webRequest", "activeTab", "scripting","debugger", "management" ],
     "version": "1.0.0",
     "host_permissions": [ "*://*.copart.com/*" ],
     "content_scripts": [ {
